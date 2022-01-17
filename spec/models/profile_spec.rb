@@ -1,13 +1,18 @@
 require "spec_helper"
 
 describe Profile do
-  it "should be invalid without user id" do
-    expect(Profile.new.tap(&:valid?)).to have_at_least(1).errors_on(:user_id)
+  subject { create(:profile, user: user) }
+  let(:user) { create(:user, username: "something_predictable") }
+
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:user_id) }
   end
 
-  it "should be valid with user id" do
-    profile = Profile.new
-    profile.user = create(:user)
-    expect(profile.valid?).to be_truthy
+  it "makes twitter url from input if available" do
+    expect(subject.twitter_url).to eq("https://twitter.com/twitter")
+  end
+
+  it "makes github url from inout if available" do
+    expect(subject.github_url).to eq("https://github.com/something_predictable")
   end
 end

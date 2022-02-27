@@ -12,7 +12,7 @@ describe Profile do
     expect(subject.twitter_url).to eq("https://twitter.com/twitter")
   end
 
-  it "makes github url from inout if available" do
+  it "makes github url from input if available" do
     expect(subject.github_url).to eq("https://github.com/something_predictable")
   end
 end
